@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-auth": {
+    "eventreservas-frontend": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/angular-auth",
+            "outputPath": "dist/eventreservas-frontend",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -59,10 +59,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "angular-auth:build:production"
+              "buildTarget": "eventreservas-frontend:build:production"
             },
             "development": {
-              "buildTarget": "angular-auth:build:development"
+              "buildTarget": "eventreservas-frontend:build:development"
             }
           },
           "defaultConfiguration": "development"

@@ -10,6 +10,21 @@
             <app-alert *ngIf="alertMessage" [message]="alertMessage" [alertType]="alertType"></app-alert>
             <form [formGroup]="registerForm" (ngSubmit)="register()" class="mt-6 space-y-6">
                 <div>
+                    <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre</label>
+                    <div class="relative mt-1">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                            <!-- Ícono de correo electrónico -->
+                            <svg class="w-6 h-6 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M20.5 3h-17A2.5 2.5 0 0 0 1 5.5v13A2.5 2.5 0 0 0 3.5 21h17a2.5 2.5 0 0 0 2.5-2.5v-13A2.5 2.5 0 0 0 20.5 3zm0 2l-8.5 5.5L3.5 5h17zM3.5 19v-11l8.5 5.5 8.5-5.5v11h-17z" />
+                            </svg>
+                        </span>
+                        <input id="nombre" name="nombre" type="text" required formControlName="nombre"
+                            class="w-full px-4 py-3 pl-12 border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                </div>
+                <div>
                     <label for="email" class="block text-sm font-medium text-gray-700">Correo Electrónico</label>
                     <div class="relative mt-1">
                         <span class="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -36,6 +51,21 @@
                             </svg>
                         </span>
                         <input id="password" name="password" type="password" required formControlName="password"
+                            class="w-full px-4 py-3 pl-12 border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                </div>
+                <div>
+                    <label for="rol" class="block text-sm font-medium text-gray-700">Rol</label>
+                    <div class="relative mt-1">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                            <!-- Ícono de contraseña -->
+                            <svg class="w-6 h-6 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6-6V9a6 6 0 1 0-12 0v2a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2zm-8-2a4 4 0 1 1 8 0v2H10V9z" />
+                            </svg>
+                        </span>
+                        <input id="rol" name="rol" type="text" required formControlName="rol"
                             class="w-full px-4 py-3 pl-12 border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
                     </div>
                 </div>
