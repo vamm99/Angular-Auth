@@ -1,9 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../enviroments/enviroment';
 import { HttpClient } from '@angular/common/http';
-import { AuthInterface, UserLogin } from './interface/auth.interface';
-import { map, Observable, tap } from 'rxjs';
-import { UserStateService } from './state.service';
+import { AuthInterface } from './interface/auth.interface';
+import { map, Observable } from 'rxjs';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -11,40 +11,45 @@ import { UserStateService } from './state.service';
 export class AuthService {
   private readonly API_URL = environment.apiUrl;
   private http: HttpClient = inject(HttpClient);
-  private userStateService: UserStateService = inject(UserStateService);
 
 
   createUser(user: AuthInterface): Observable<{ user: AuthInterface, message: string }> {
-    return this.http.post<{ user: AuthInterface, message: string }>(`${this.API_URL}/register`, user).pipe(
+    return this.http.post<{ user: AuthInterface, message: string }>(`${this.API_URL}/auth/register`, user).pipe(
       map(response => { return response })
     )
   }
 
-  login(user: UserLogin): Observable<{ token: string, usuario: { id: number, nombre: string, email: string, rol: string } }> {
-    return this.http.post<{ token: string, usuario: { id: number, nombre: string, email: string, rol: string } }>(`${this.API_URL}/login`, user).pipe(
-      map(response => response)
-    );
+  login(user: AuthInterface): Observable<{ access_token: string }> {
+
+    return this.http.post<{ access_token: string }>(`${this.API_URL}/auth/login`, user).pipe(
+      map(response => { return response })
+    )
   }
 
   me(): Observable<AuthInterface> {
-    return this.http.get<AuthInterface>(`${this.API_URL}/me`).pipe(
-      tap((user: AuthInterface) => {
-        this.userStateService.setUser(user); // Guarda el usuario en el estado
-      })
+
+    const token = this.getToken();
+
+    if (!token) {
+      throw new Error('No access token found');
+    }
+    const decoded: { email: string, id: string } = jwtDecode(token);
+
+    const userId = decoded.id;
+    return this.http.get<AuthInterface>(`${this.API_URL}/auth/me/${userId}`).pipe(
+      map(response => { return response })
     );
   }
 
-
-  setToken(token: string): void {
-    localStorage.setItem('token', token);
+  setToken(access_token: string): void {
+    localStorage.setItem('access_token', access_token);
   }
 
   getToken(): string | null {
-    return localStorage.getItem('token');
+    return localStorage.getItem('access_token');
   }
 
   logout(): void {
-    localStorage.removeItem('token');
-    this.userStateService.clearUser();
+    localStorage.removeItem('access_token');
   }
 }

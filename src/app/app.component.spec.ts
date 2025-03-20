@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'eventreservas-frontend' title`, () => {
+  it(`should have the 'angular-auth' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('eventreservas-frontend');
+    expect(app.title).toEqual('angular-auth');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, eventreservas-frontend');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, angular-auth');
   });
 });

@@ -15,10 +15,8 @@ import { AuthInterface } from '../../../core/services/interface/auth.interface';
 export class RegisterComponent {
   private authService: AuthService = inject(AuthService);
   registerForm = new FormGroup({
-    nombre: new FormControl(''),
     email: new FormControl(''),
-    password: new FormControl(''),
-    rol: new FormControl('')
+    password: new FormControl('')
   });
   alertMessage: string = '';
   alertType: 'success' | 'error' | 'warning' | 'info' = 'info';
@@ -27,7 +25,7 @@ export class RegisterComponent {
   register(): void {
     if (this.registerForm.invalid) return;
     this.isLoading = true;
-    const credencials: AuthInterface = this.registerForm.value as { nombre: string, email: string; password: string, rol: string };
+    const credencials: AuthInterface = this.registerForm.value as { email: string; password: string };
 
     // Simular un retardo de 2 segundos
     setTimeout(() => {

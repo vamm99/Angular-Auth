@@ -1,8 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { AuthService } from '../../core/services/auth.service';
+import { UserInterface } from './interfaces/user.interface';
 import { CommonModule } from '@angular/common';
-import { Me } from '../../core/services/interface/auth.interface';
-import { UserStateService } from '../../core/services/state.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-me',
@@ -12,22 +12,16 @@ import { UserStateService } from '../../core/services/state.service';
 })
 export class MeComponent implements OnInit {
   private authService: AuthService = inject(AuthService);
-  private userStateService: UserStateService = inject(UserStateService);
-  user: Me = {
+  private router: Router = inject(Router);
+  user: UserInterface = {
     id: 0,
-    nombre: '',
     email: '',
-    rol: ''
+    password: ''
   };
   message: string = '';
 
   ngOnInit(): void {
-    const cachedUser = this.userStateService.getUser();
-    if (cachedUser) {
-      this.user = cachedUser; // Usa el usuario almacenado en el estado
-    } else {
-      this.me(); // Si no hay usuario en el estado, haz la solicitud
-    }
+    this.me();
   }
 
   me() {
